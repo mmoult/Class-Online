@@ -1,4 +1,5 @@
-# class-online
+# Class Online
+This is a Vue website project that models what a school online system could look like for administrators.
 
 ## Project setup
 ```
