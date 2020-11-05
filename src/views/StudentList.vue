@@ -31,8 +31,6 @@ export default {
   name: 'StudentList',
   methods: {
 	selectStudent(id) {
-	  console.log("HELLO " + id);
-	  alert(id);
 	  this.$root.$data.$clickId = id;
 	  this.$router.push('/student');
 	}
