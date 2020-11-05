@@ -19,6 +19,7 @@
 </div>
 </template>
 
+
 <style>
 #icon {
 	width: 35px;
@@ -45,4 +46,14 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.link {
+  font-weight: bold;
+  color: #754275;
+}
+
+.link:hover {
+  color: #C16EC1;
+}
+
 </style>
