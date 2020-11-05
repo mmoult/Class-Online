@@ -1,4 +1,3 @@
-let mock =
 [{"class_id":1,"class_name":"Offshore Outsourcing","prof_id":11,"class_hour":"10:31","class_day":"MWF"},
 {"class_id":2,"class_name":"Document Imaging","prof_id":9,"class_hour":"9:29","class_day":"TTh"},
 {"class_id":3,"class_name":"Software Development","prof_id":3,"class_hour":"15:05","class_day":"MWF"},
@@ -19,5 +18,3 @@ let mock =
 {"class_id":18,"class_name":"Aerospace Engineering","prof_id":4,"class_hour":"18:19","class_day":"TTh"},
 {"class_id":19,"class_name":"Cycle Counting","prof_id":14,"class_hour":"8:36","class_day":"MW"},
 {"class_id":20,"class_name":"Occupational Health Nursing","prof_id":10,"class_hour":"9:04","class_day":"MWF"}]
-
-export default mock;
