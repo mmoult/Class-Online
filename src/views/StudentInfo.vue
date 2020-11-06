@@ -8,12 +8,12 @@
 	<p>Gender: {{currentStud.gender}}</p>
 	<br/>
 	<h3 style="text-decoration:underline">Enrolled Classes</h3>
-	
+
 	<div v-if="classes.length == 0">
 	  <p>No classes!</p>
 	</div>
 	<div v-else>
-	  <table style="width:100%">
+	  <table style="width:100%; padding:0 15%">
 		<tr>
 			<th>Course Name</th>
 			<th>Professor</th>
@@ -39,7 +39,7 @@
 		</tr>
 	  </table>
 	</div>
-	
+
 </div>
 
 
