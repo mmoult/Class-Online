@@ -7,15 +7,15 @@
 	<p>Email: {{currentStud.email}}</p>
 	<p>Gender: {{currentStud.gender}}</p>
 	<br/>
-	<h3>Enrolled Classes</h3>
+	<h3 style="text-decoration:underline">Enrolled Classes</h3>
 	
-	<div v-if"myClasses.length == 0">
+	<div v-if="classes.length == 0">
 	  <p>No classes!</p>
 	</div>
 	<div v-else>
 	  <table style="width:100%">
-		<tr class="selectable">
-			<th>Name</th>
+		<tr>
+			<th>Course Name</th>
 			<th>Professor</th>
 			<th>Grade</th>
 			<th>Hour</th>
@@ -23,10 +23,14 @@
 		</tr>
 		<tr v-for="myClass in classes" :key="myClass"
 			class="selectable">
-			<td>{{ myClass.class.name }}</td>
 			<td>
-				<p class="link" @click="selectProfessor(myClass.professor.id)">
-				{{ myClass.professor.first_name }} {{ myClass.professor.last_name }}
+				<p class="link" @click="selectClass(myClass.class.class_id)">
+				{{ myClass.class.class_name }}
+				</p>
+			</td>
+			<td>
+				<p class="link" @click="selectProfessor(myClass.teacher.id)">
+				{{ myClass.teacher.first_name }} {{ myClass.teacher.last_name }}
 				</p>
 			</td>
 			<td>{{ myClass.grade }}</td>
@@ -70,6 +74,6 @@ export default {
 </script>
 
 
-<styles scoped>
+<style scoped>
 
-</styles>
+</style>

@@ -10,10 +10,8 @@
 				<th>Email</th>
 			</tr>
 			<tr v-for="teacher in this.$root.$data.teachers" :key="teacher"
-				class="selectable">
-				<td><p class="link" @click="selectTeacher(teacher.id)">
-					{{ teacher.id }}</p>
-				</td>
+				class="selectable" @click="selectTeacher(teacher.id)">
+				<td><p class="link">{{ teacher.id }}</p></td>
 				<td>{{ teacher.first_name }}</td>
 				<td>{{ teacher.last_name }}</td>
 				<td>{{ teacher.gender }}</td>
@@ -38,8 +36,6 @@ export default {
 </script>
 
 
-<styles scoped>
-.selectable:hover {
-	background-color: #777777;
-}
-</styles>
+<style scoped>
+
+</style>

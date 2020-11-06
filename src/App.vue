@@ -56,4 +56,8 @@
   color: #C16EC1;
 }
 
+tr.selectable:hover {
+  background-color: #E5E5E5;
+}
+
 </style>
