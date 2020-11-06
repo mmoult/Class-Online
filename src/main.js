@@ -12,8 +12,7 @@ let data = {
   classes: classListData,
   students: userData,
   teachers: professorData,
-  grades: gradeData,
-  clickId: 1
+  grades: gradeData
 }
 
 new Vue({

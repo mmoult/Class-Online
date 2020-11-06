@@ -28,10 +28,10 @@
 export default {
   name: 'StudentList',
   methods: {
-	selectStudent(id) {
-	  this.$root.$data.$clickId = id;
-	  this.$router.push('/student');
-	}
+    selectStudent(id) {
+	  console.log("HELLO " + id);
+	  this.$router.push({name: 'StudentInfo', params: { id: id}});
+	},
   }
 }
 </script>

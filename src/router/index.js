@@ -17,7 +17,7 @@ const routes = [
     component: Home
   },
   {
-    path: "/class",
+    path: "/class/:id",
     name: "ClassInfo",
     component: ClassInfo
   },
@@ -27,7 +27,7 @@ const routes = [
     component: ClassList
   },
   {
-    path: "/student",
+    path: "/student/:id",
     name: "StudentInfo",
     component: StudentInfo
   },
@@ -37,7 +37,7 @@ const routes = [
     component: StudentList
   },
   {
-    path: "/teacher",
+    path: "/teacher/:id",
     name: "TeacherInfo",
     component: TeacherInfo
   },
@@ -52,6 +52,7 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
+  props: true,
   routes
 });
 

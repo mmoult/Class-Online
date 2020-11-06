@@ -28,8 +28,7 @@ export default {
   methods: {
 	selectTeacher(id) {
 	  console.log("HELLO " + id);
-	  this.$root.$data.$clickId = id;
-	  this.$router.push('/teacher');
+	  this.$router.push({name: 'TeacherInfo', params: { id: id}});
 	}
   }
 }

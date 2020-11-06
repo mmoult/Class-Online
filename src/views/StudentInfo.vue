@@ -1,4 +1,4 @@
-<template>
+Number(this.$route.params.id))<template>
 <div>
 	<h2>{{currentStud.first_name}}  {{currentStud.last_name}}</h2>
 	<p>Student ID: {{currentStud.id}}</p>
@@ -29,7 +29,7 @@
 				</p>
 			</td>
 			<td>
-				<p class="link" @click="selectProfessor(myClass.teacher.id)">
+				<p class="link" @click="selectTeacher(myClass.teacher.id)">
 				{{ myClass.teacher.first_name }} {{ myClass.teacher.last_name }}
 				</p>
 			</td>
@@ -48,13 +48,22 @@
 
 <script>
 export default {
+  methods: {
+    selectClass(id) {
+	  console.log("HELLO " + id);
+	  this.$router.push({name: 'ClassInfo', params: { id: id}});
+	},
+	selectTeacher(id) {
+	  console.log("HELLO " + id);
+	  this.$router.push({name: 'TeacherInfo', params: { id: id}});
+	}
+  },
   computed: {
     currentStud() {
-      console.log(this.$root.$data.students.filter(student => student.id === this.$root.$data.$clickId));
-      return this.$root.$data.students.filter(student => student.id === this.$root.$data.$clickId)[0];
+      return this.$root.$data.students.filter(student => student.id === Number(this.$route.params.id))[0];
     },
 	classes() {
-	  let grades = this.$root.$data.grades.filter(grade => grade.id === this.$root.$data.$clickId);
+	  let grades = this.$root.$data.grades.filter(grade => grade.id === Number(this.$route.params.id));
 	  let myClasses = [];
 	  for(let i=0; i<grades.length; i++) {
 		for(let j=0; j<this.$root.$data.classes.length; j++) {

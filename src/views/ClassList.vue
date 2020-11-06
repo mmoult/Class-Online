@@ -26,10 +26,9 @@
 export default {
   name: 'StudentList',
   methods: {
-	selectClass(id) {
+    selectClass(id) {
 	  console.log("HELLO " + id);
-	  this.$root.$data.$clickId = id;
-	  this.$router.push('/class');
+	  this.$router.push({name: 'ClassInfo', params: { id: id}});
 	}
   }
 }

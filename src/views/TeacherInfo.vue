@@ -43,13 +43,19 @@
 
 <script>
 export default {
+  methods: {
+    selectClass(id) {
+	  console.log("HELLO " + id);
+	  this.$router.push({name: 'ClassInfo', params: { id: id}});
+	}
+  },
   computed: {
     currentTeacher() {
-      console.log(this.$root.$data.teachers.filter(teacher => teacher.id === this.$root.$data.$clickId));
-      return this.$root.$data.teachers.filter(teacher => teacher.id === this.$root.$data.$clickId)[0];
+      console.log(this.$root.$data.teachers.filter(teacher => teacher.id === Number(this.$route.params.id)));
+      return this.$root.$data.teachers.filter(teacher => teacher.id === Number(this.$route.params.id))[0];
     },
 	classes() {
-	  let myClasses = this.$root.$data.classes.filter(classe => classe.prof_id === this.$root.$data.$clickId);
+	  let myClasses = this.$root.$data.classes.filter(classe => classe.prof_id === Number(this.$route.params.id));
     console.log(myClasses)
 	  return myClasses;
 	}

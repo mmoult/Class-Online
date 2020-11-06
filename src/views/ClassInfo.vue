@@ -4,7 +4,12 @@
 	<p>Class ID: {{currentClass.class_id}}</p>
 	<p>Class Days: {{currentClass.class_day}}</p>
 	<p>Class Hour: {{currentClass.class_hour}}</p>
-  <span>Professor: <p class="link" @click="selectProfessor(currentProfessor.id)">{{currentProfessor.first_name}} {{currentProfessor.last_name}}</p> </span>
+	<span style="display:flex; width:100%; justify-content:center;">
+	  <p>Professor:</p>
+	  <p class="link" style="margin-left:5px" @click="selectTeacher(currentProfessor.id)">
+	    {{currentProfessor.first_name}} {{currentProfessor.last_name}}
+	  </p>
+	</span>
 	<br/>
 	<h3 style="text-decoration:underline">Students Enrolled</h3>
 
@@ -38,9 +43,6 @@
 	</div>
 
 </div>
-
-
-
 </template>
 
 
@@ -48,32 +50,30 @@
 export default {
   methods: {
     selectStudent(id) {
-      this.$root.$data.$clickId = id;
-      this.$router.push('/student');
-    },
-    selectTeacher(id) {
-  	  console.log("HELLO " + id);
-  	  this.$root.$data.$clickId = id;
-  	  this.$router.push('/teacher');
-  	}
+	  console.log("HELLO " + id);
+	  this.$router.push({name: 'StudentInfo', params: { id: id}});
+	},
+	selectTeacher(id) {
+	  console.log("HELLO " + id);
+	  this.$router.push({name: 'TeacherInfo', params: { id: id}});
+	}
   },
   computed: {
     currentClass() {
-
-      return this.$root.$data.classes.filter(classe => classe.class_id === this.$root.$data.$clickId)[0];
+      return this.$root.$data.classes.filter(classe => classe.class_id === Number(this.$route.params.id))[0];
     },
     currentProfessor() {
-      console.log("3");
-      console.log(this.$root.$data.teachers.filter(professor => professor.id === this.$root.$data.classes.filter(classe => classe.class_id === this.$root.$data.$clickId)[0].prof_id))
-      return this.$root.$data.teachers.filter(professor => professor.id === this.$root.$data.classes.filter(classe => classe.class_id === this.$root.$data.$clickId)[0].prof_id)[0];
+	  let theClass = this.$root.$data.classes.filter(classe => classe.class_id === Number(this.$route.params.id))[0];
+      console.log(this.$root.$data.teachers.filter(professor => professor.id === theClass.prof_id))
+      return this.$root.$data.teachers.filter(professor => professor.id === theClass.prof_id)[0];
     },
   	currentStudents() {
-  	  let myGrades = this.$root.$data.grades.filter(grade => grade.id === this.$root.$data.$clickId);
+	  let myGrades = this.$root.$data.grades.filter(grade => grade.class_id === Number(this.$route.params.id));
       let myStudents = [];
       for(let i=0; i<myGrades.length; i++) {
-    		for(let j=0; j<this.$root.$data.students.length; j++) {
-    		  if(myGrades[i].id === this.$root.$data.students[j].id) {
-      			myStudents.push({grade: myGrades[i].grade, student:this.$root.$data.students[j]});
+        for(let j=0; j<this.$root.$data.students.length; j++) {
+    	  if(myGrades[i].id === this.$root.$data.students[j].id) {
+      	    myStudents.push({grade: myGrades[i].grade, student:this.$root.$data.students[j]});
           }
         }
   	  }
@@ -81,7 +81,7 @@ export default {
       console.log(myStudents);
       return myStudents;
     }
-    }
+  }
 }
 </script>
 
