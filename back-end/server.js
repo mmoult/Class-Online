@@ -59,7 +59,7 @@ const studentsSchema = new mongoose.Schema({
 });
 
 const ProfessorItem = mongoose.model('professor', professorsSchema);
-const ClassItem = mongoose.model('class', classSchema);
+const ClassItem = mongoose.model('classe', classSchema);
 const GradeItem = mongoose.model('grade', gradeSchema);
 const StudentItem = mongoose.model('student', studentsSchema);
 
@@ -74,8 +74,8 @@ app.get('/api/students', async (req, res) => {
 });
 app.get('/api/classes', async (req, res) => {
   try {
-    let class = await ClassItem.find();
-    res.send(class);
+    let classe = await ClassItem.find();
+    res.send(classe);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
