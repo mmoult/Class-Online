@@ -7,14 +7,20 @@ npm install
 ```
 
 ### Compiles and hot-reloads for development
+front-end:
 ```
 npm run serve
+```
+back-end:
+```
+node server.js
 ```
 
 ### Compiles and minifies for production
 ```
 npm run build
 ```
+
 
 ### Lints and fixes files
 ```
