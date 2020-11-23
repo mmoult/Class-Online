@@ -47,6 +47,7 @@ Number(this.$route.params.id))<template>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   created() {
     this.getClasses();

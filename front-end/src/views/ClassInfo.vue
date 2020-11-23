@@ -47,6 +47,7 @@
 
 
 <script>
+import axios from 'axios';
 export default {
   methods: {
     selectStudent(id) {
