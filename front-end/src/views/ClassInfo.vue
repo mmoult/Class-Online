@@ -6,7 +6,7 @@
 	<p>Class Hour: {{currentClass.class_hour}}</p>
 	<span style="display:flex; width:100%; justify-content:center;">
 	  <p>Professor:</p>
-	  <p class="link" style="margin-left:5px" @click="selectTeacher(currentProfessor.id)">
+	  <p class="link" style="margin-left:5px" @click="$selectTeacher(currentProfessor.id)">
 	    {{currentProfessor.first_name}} {{currentProfessor.last_name}}
 	  </p>
 	</span>
@@ -27,12 +27,12 @@
   <tr v-for="myStudent in currentStudents" :key="myStudent"
     class="selectable">
     <td>
-      <p class="link" @click="selectStudent(myStudent.student.id)">
+      <p class="link" @click="$selectStudent(myStudent.student.id)">
       {{ myStudent.student.first_name}}
       </p>
     </td>
     <td>
-      <p class="link" @click="selectStudent(myStudent.student.id)">
+      <p class="link" @click="$selectStudent(myStudent.student.id)">
       {{ myStudent.student.last_name}}
       </p>
     </td>
@@ -47,39 +47,28 @@
 
 
 <script>
-import axios from 'axios';
 export default {
-  methods: {
-    selectStudent(id) {
-	  console.log("HELLO " + id);
-	  this.$router.push({name: 'StudentInfo', params: { id: id}});
-	},
-	selectTeacher(id) {
-	  console.log("HELLO " + id);
-	  this.$router.push({name: 'TeacherInfo', params: { id: id}});
-	}
-  },
   created() {
-    this.getClasses();
-	this.getProfessors();
-	this.getStudents();
-	this.getGrades();
+    this.$getClasses();
+	this.$getProfessors();
+	this.$getStudents();
+	this.$getGrades();
   },
   computed: {
     currentClass() {
-      return this.$root.$data.classes.filter(classe => classe.class_id === Number(this.$route.params.id))[0];
+      return this.$root.$data.classes.filter(classe => classe.class_id == Number(this.$route.params.id))[0];
     },
     currentProfessor() {
-	  let theClass = this.$root.$data.classes.filter(classe => classe.class_id === Number(this.$route.params.id))[0];
-      console.log(this.$root.$data.teachers.filter(professor => professor.id === theClass.prof_id))
-      return this.$root.$data.teachers.filter(professor => professor.id === theClass.prof_id)[0];
+	  let theClass = this.$root.$data.classes.filter(classe => classe.class_id == Number(this.$route.params.id))[0];
+      console.log(this.$root.$data.teachers.filter(professor => professor.id == theClass.prof_id))
+      return this.$root.$data.teachers.filter(professor => professor.id == theClass.prof_id)[0];
     },
   	currentStudents() {
-	  let myGrades = this.$root.$data.grades.filter(grade => grade.class_id === Number(this.$route.params.id));
+	  let myGrades = this.$root.$data.grades.filter(grade => grade.class_id == Number(this.$route.params.id));
       let myStudents = [];
       for(let i=0; i<myGrades.length; i++) {
         for(let j=0; j<this.$root.$data.students.length; j++) {
-    	  if(myGrades[i].id === this.$root.$data.students[j].id) {
+    	  if(myGrades[i].id == this.$root.$data.students[j].id) {
       	    myStudents.push({grade: myGrades[i].grade, student:this.$root.$data.students[j]});
           }
         }
@@ -89,44 +78,6 @@ export default {
       return myStudents;
     }
   },
-  methods: {
-	async getClasses() {
-	  try {
-        let response = await axios.get("/api/classes");
-        this.classes = response.data;
-        return true;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-	async getProfessors() {
-	  try {
-        let response = await axios.get("/api/professors");
-        this.professors = response.data;
-        return true;
-      } catch (error) {
-        console.log(error);
-      }
-	},
-	async getStudents() {
-	  try {
-        let response = await axios.get("/api/students");
-        this.students = response.data;
-        return true;
-      } catch (error) {
-        console.log(error);
-      }
-	},
-	async getGrades() {
-	  try {
-        let response = await axios.get("/api/grades");
-        this.grades = response.data;
-        return true;
-      } catch (error) {
-        console.log(error);
-      }
-	},
-  }
 }
 </script>
 

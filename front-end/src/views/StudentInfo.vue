@@ -24,12 +24,12 @@ Number(this.$route.params.id))<template>
 		<tr v-for="myClass in classes" :key="myClass"
 			class="selectable">
 			<td>
-				<p class="link" @click="selectClass(myClass.class.class_id)">
+				<p class="link" @click="$selectClass(myClass.class.class_id)">
 				{{ myClass.class.class_name }}
 				</p>
 			</td>
 			<td>
-				<p class="link" @click="selectTeacher(myClass.teacher.id)">
+				<p class="link" @click="$selectTeacher(myClass.teacher.id)">
 				{{ myClass.teacher.first_name }} {{ myClass.teacher.last_name }}
 				</p>
 			</td>
@@ -47,66 +47,19 @@ Number(this.$route.params.id))<template>
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   created() {
-    this.getClasses();
-	this.getStudents();
-	this.getProfessors();
-	this.getGrades();
-  },
-  methods: {
-    async getClasses() {
-	  try {
-        let response = await axios.get("/api/classes");
-        this.classes = response.data;
-        return true;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-	async getProfessors() {
-	  try {
-        let response = await axios.get("/api/professors");
-        this.professors = response.data;
-        return true;
-      } catch (error) {
-        console.log(error);
-      }
-	},
-	async getStudents() {
-	  try {
-        let response = await axios.get("/api/students");
-        this.students = response.data;
-        return true;
-      } catch (error) {
-        console.log(error);
-      }
-	},
-	async getGrades() {
-	  try {
-        let response = await axios.get("/api/grades");
-        this.grades = response.data;
-        return true;
-      } catch (error) {
-        console.log(error);
-      }
-	},
-    selectClass(id) {
-	  console.log("HELLO " + id);
-	  this.$router.push({name: 'ClassInfo', params: { id: id}});
-	},
-	selectTeacher(id) {
-	  console.log("HELLO " + id);
-	  this.$router.push({name: 'TeacherInfo', params: { id: id}});
-	}
+    this.$getClasses();
+	this.$getStudents();
+	this.$getProfessors();
+	this.$getGrades();
   },
   computed: {
     currentStud() {
-      return this.$root.$data.students.filter(student => student.id === Number(this.$route.params.id))[0];
+      return this.$root.$data.students.filter(student => student.id == Number(this.$route.params.id))[0];
     },
 	classes() {
-	  let grades = this.$root.$data.grades.filter(grade => grade.id === Number(this.$route.params.id));
+	  let grades = this.$root.$data.grades.filter(grade => grade.id == Number(this.$route.params.id));
 	  let myClasses = [];
 	  for(let i=0; i<grades.length; i++) {
 		for(let j=0; j<this.$root.$data.classes.length; j++) {

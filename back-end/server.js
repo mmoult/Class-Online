@@ -48,6 +48,7 @@ const professorsSchema = new mongoose.Schema({
   age: String,
   salary: String,
 });
+
 const studentsSchema = new mongoose.Schema({
   id: String,
   user_name: String,
@@ -65,6 +66,7 @@ const StudentItem = mongoose.model('student', studentsSchema);
 
 app.get('/api/students', async (req, res) => {
   try {
+    console.log("GET students!");
     let student = await StudentItem.find();
     res.send(student);
   } catch (error) {
@@ -111,7 +113,8 @@ app.delete('/api/students/:id', async (req, res) => {
     console.log(error);
     res.sendStatus(500);
   }
-});app.delete('/api/classes/:id', async (req, res) => {
+});
+app.delete('/api/classes/:id', async (req, res) => {
   try {
     await ClassItem.deleteOne({
       _id: req.params.id
@@ -121,7 +124,8 @@ app.delete('/api/students/:id', async (req, res) => {
     console.log(error);
     res.sendStatus(500);
   }
-});app.delete('/api/professors/:id', async (req, res) => {
+});
+app.delete('/api/professors/:id', async (req, res) => {
   try {
     await ProfessorItem.deleteOne({
       _id: req.params.id
@@ -131,7 +135,8 @@ app.delete('/api/students/:id', async (req, res) => {
     console.log(error);
     res.sendStatus(500);
   }
-});app.delete('/api/grades/:id', async (req, res) => {
+});
+app.delete('/api/grades/:id', async (req, res) => {
   try {
     await Item.deleteOne({
       _id: req.params.id
@@ -154,6 +159,7 @@ app.post('/api/students', async (req, res) => {
     gender: req.body.gender,
   });
   try {
+    console.log("POST students!");
     await student.save();
     res.send(student);
   } catch (error) {
