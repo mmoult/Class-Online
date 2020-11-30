@@ -34,6 +34,20 @@
 		</tr>
 	  </table>
 	</div>
+	
+	<h3>Teach a New Class</h3>
+	<form>
+	  <label for="class_id">class id:  </label>
+	  <input type="text" id="class_id" name="class_id"><br><br>
+	  <label for="class_name">Class Name:</label>
+	  <input type="text" id="class_name" name="class_name"><br><br>
+	  <label for="class_hour">class hour:  </label>
+	  <input type="text" id="class_hour" name="class_hour"><br><br>
+	  <label for="class_day">Class Day:</label>
+	  <input type="text" id="class_day" name="class_day"><br><br>
+	  
+	  <input type="submit" value="Submit" @click="doSomething">
+	</form>
 
 </div>
 
@@ -58,6 +72,11 @@ export default {
 	  let myClasses = this.$root.$data.classes.filter(classe => classe.prof_id == Number(this.$route.params.id));
     console.log(myClasses)
 	  return myClasses;
+	}
+  },
+  methods: {
+	doSomething() {
+		alert("Something");
 	}
   }
 }

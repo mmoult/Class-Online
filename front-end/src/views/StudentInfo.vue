@@ -39,6 +39,22 @@ Number(this.$route.params.id))<template>
 		</tr>
 	  </table>
 	</div>
+	
+	<h3 style="text-decoration:underline">Add a Class</h3>
+	<form>
+		<label for="classId">Class ID: </label>
+		<input type="text" id="classId" name="classId" placeholder="Class ID"/>
+		<br/><br/>
+		<label for="courseName">Course Name: </label>
+		<input type="text" id="courseName" name="courseName" placeholder="Course Name"/>
+		<br/><br/>
+		<label for="grade">Grade: </label>
+		<input type="text" id="grade" name="grade" placeholder="Grade (0-100)"/>
+		<br/><br/>
+		<input type="submit" value="Submit"/>
+	</form>
+	
+	
 
 </div>
 
