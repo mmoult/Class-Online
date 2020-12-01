@@ -101,7 +101,15 @@ app.get('/api/grades', async (req, res) => {
     res.sendStatus(500);
   }
 });
-
+app.get('/api/classes/find/:name', async (req, res) => {
+	try {
+		let classes = await ClassItem.find({class_name: new RegExp(req.params.name)});
+		res.send(classes);
+	} catch (error) {
+		console.log(error);
+		res.sendStatus(500);
+	}
+});
 
 app.delete('/api/students/:id', async (req, res) => {
   try {

@@ -43,19 +43,17 @@ Number(this.$route.params.id))<template>
 	<h3 style="text-decoration:underline">Add a Class</h3>
 	<form>
 		<label for="classId">Class ID: </label>
-		<input type="text" id="classId" name="classId" placeholder="Class ID"/>
+		<input type="text" id="classId" name="classId" placeholder="Class ID" v-model="classId"/>
 		<br/><br/>
 		<label for="courseName">Course Name: </label>
-		<input type="text" id="courseName" name="courseName" placeholder="Course Name"/>
+		<input type="text" id="courseName" name="courseName" placeholder="Course Name" v-model="courseName"/>
 		<br/><br/>
 		<label for="grade">Grade: </label>
-		<input type="text" id="grade" name="grade" placeholder="Grade (0-100)"/>
+		<input type="text" id="grade" name="grade" placeholder="Grade (0-100)" v-model="grade"/>
 		<br/><br/>
-		<input type="submit" value="Submit"/>
 	</form>
+	<button @click="addClass()">Submit</button>
 	
-	
-
 </div>
 
 
@@ -63,7 +61,15 @@ Number(this.$route.params.id))<template>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+  data() {
+    return {
+		classId: "",
+		courseName: "",
+		grade: ""
+	}
+  },
   created() {
     this.$getClasses();
 	this.$getStudents();
@@ -89,6 +95,31 @@ export default {
 		}
 	  }
 	  return myClasses;
+	}
+  },
+  methods: {
+	async addClass() {
+		if(this.classId == "") {
+		  //find a matching course name
+		  let result = await axios.get('/api/classes/find/'+this.courseName);
+		  //great! This gives us an array of results. Hopefully, the user was smart, and there
+		  //is only one. We select the first and plug in the data
+		  if(result.data.length == 0) {
+		    alert("No class found by name '" + this.courseName + "'!");
+			return;
+		  }
+		  this.classId = result.data[0].class_id;
+		  this.courseName = result.data[0].class_name;
+		  //console.log(result);
+		}
+		
+		//now we can push to the api
+		await axios.post('/api/grades', {
+			id: this.$route.params.id,
+			grade: this.grade,
+			class_id: this.classId
+		});
+		window.location.reload(false); //reload
 	}
   }
 }

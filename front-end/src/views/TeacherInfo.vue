@@ -5,9 +5,9 @@
 	<p>First Name: {{currentTeacher.first_name}}</p>
 	<p>Last Name: {{currentTeacher.last_name}}</p>
 	<p>Gender: {{currentTeacher.gender}}</p>
-  <p>Age: {{currentTeacher.age}}</p>
+    <p>Age: {{currentTeacher.age}}</p>
 	<p>Email: {{currentTeacher.email}}</p>
-  <p>Years Teaching: {{currentTeacher.years_teaching}}</p>
+    <p>Years Teaching: {{currentTeacher.years_teaching}}</p>
 	<p>Salary: {{currentTeacher.salary}}</p>
 	<br/>
 	<h3 style="text-decoration:underline">Classes Teaching</h3>
