@@ -103,7 +103,7 @@ app.get('/api/grades', async (req, res) => {
 });
 app.get('/api/classes/find/:name', async (req, res) => {
 	try {
-		let classes = await ClassItem.find({class_name: new RegExp(req.params.name)});
+		let classes = await ClassItem.find({class_name: new RegExp(req.params.name, 'i')});
 		res.send(classes);
 	} catch (error) {
 		console.log(error);
@@ -113,9 +113,10 @@ app.get('/api/classes/find/:name', async (req, res) => {
 
 app.delete('/api/students/:id', async (req, res) => {
   try {
-    await StudentItem.deleteOne({
-      _id: req.params.id
+    let something = await StudentItem.deleteOne({
+      id: req.params.id
     });
+	console.log(req.params.id, something);
     res.sendStatus(200);
   } catch (error) {
     console.log(error);
@@ -125,7 +126,7 @@ app.delete('/api/students/:id', async (req, res) => {
 app.delete('/api/classes/:id', async (req, res) => {
   try {
     await ClassItem.deleteOne({
-      _id: req.params.id
+      class_id: req.params.id
     });
     res.sendStatus(200);
   } catch (error) {
@@ -136,7 +137,7 @@ app.delete('/api/classes/:id', async (req, res) => {
 app.delete('/api/professors/:id', async (req, res) => {
   try {
     await ProfessorItem.deleteOne({
-      _id: req.params.id
+      id: req.params.id
     });
     res.sendStatus(200);
   } catch (error) {
@@ -146,8 +147,20 @@ app.delete('/api/professors/:id', async (req, res) => {
 });
 app.delete('/api/grades/:id', async (req, res) => {
   try {
-    await Item.deleteOne({
-      _id: req.params.id
+    await GradeItem.deleteMany({
+      id: req.params.id
+    });
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+app.delete('/api/grades/:id/:class_id', async (req, res) => {
+  try {
+    await GradeItem.deleteOne({
+      id: req.params.id,
+	  class_id: req.params.class_id
     });
     res.sendStatus(200);
   } catch (error) {

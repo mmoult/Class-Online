@@ -1,13 +1,15 @@
 <template>
 <div id="app">
-	<h1>Class Online</h1>
-	<div id="nav">
-		<router-link to="/">Home</router-link> |
-		<router-link to="/classes">Classes</router-link> |
-		<router-link to="/teachers">Teachers</router-link> |
-		<router-link to="/students">Students</router-link> 
-    </div>
-    <router-view />
+	<div class="content">
+		<h1>Class Online</h1>
+		<div id="nav">
+			<router-link to="/">Home</router-link> |
+			<router-link to="/classes">Classes</router-link> |
+			<router-link to="/teachers">Teachers</router-link> |
+			<router-link to="/students">Students</router-link> 
+		</div>
+		<router-view />
+	</div>
 	<div>
 		<hr/>
 		<p class="centered">©2020 Wade McMillan and Matthew Moulton <br/>
@@ -21,6 +23,16 @@
 
 
 <style>
+#app {
+	display: flex !important;
+    min-height: 100vh !important;
+    flex-direction: column !important;
+}
+
+.content {
+	flex-grow: 1 !important;
+}
+
 #icon {
 	width: 35px;
 }

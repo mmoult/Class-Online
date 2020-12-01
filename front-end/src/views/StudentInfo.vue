@@ -36,23 +36,27 @@ Number(this.$route.params.id))<template>
 			<td>{{ myClass.grade }}</td>
 			<td>{{ myClass.class.class_hour }}</td>
 			<td>{{ myClass.class.class_day }}</td>
+			<button @click="dropClass(myClass)" class="delete" style="margin-top:30%">X</button>
 		</tr>
 	  </table>
 	</div>
 	
-	<h3 style="text-decoration:underline">Add a Class</h3>
+	<h3 style="text-decoration:underline; padding-top:2%">Add a Class</h3>
 	<form>
 		<label for="classId">Class ID: </label>
 		<input type="text" id="classId" name="classId" placeholder="Class ID" v-model="classId"/>
 		<br/><br/>
 		<label for="courseName">Course Name: </label>
-		<input type="text" id="courseName" name="courseName" placeholder="Course Name" v-model="courseName"/>
+		<input type="text" id="courseName" name="courseName" placeholder="Course Name" v-model="courseName" @blur="fillCourseName"/>
 		<br/><br/>
 		<label for="grade">Grade: </label>
 		<input type="text" id="grade" name="grade" placeholder="Grade (0-100)" v-model="grade"/>
 		<br/><br/>
 	</form>
 	<button @click="addClass()">Submit</button>
+	
+	<h3 style="text-decoration:underline; padding-top:2%">Other Options</h3>
+	<button style="margin-bottom:2%" @click="removeStudent">Remove Student</button>
 	
 </div>
 
@@ -95,22 +99,31 @@ export default {
 		}
 	  }
 	  return myClasses;
-	}
+	},
   },
   methods: {
+    async fillCourseName() {
+	  //find a matching course name
+	  let result = await axios.get('/api/classes/find/'+this.courseName);
+	  //great! This gives us an array of results. Hopefully, the user was smart, and there
+	  //is only one. We select the first and plug in the data
+	  if(result.data.length == 0) {
+		alert("No class found by name '" + this.courseName + "'!");
+		return;
+	  }
+	  this.classId = result.data[0].class_id;
+	  this.courseName = result.data[0].class_name;
+	  //console.log(result);
+	},
 	async addClass() {
 		if(this.classId == "") {
-		  //find a matching course name
-		  let result = await axios.get('/api/classes/find/'+this.courseName);
-		  //great! This gives us an array of results. Hopefully, the user was smart, and there
-		  //is only one. We select the first and plug in the data
-		  if(result.data.length == 0) {
-		    alert("No class found by name '" + this.courseName + "'!");
+		  await this.fillCourseName();
+		}
+		
+		console.log(this.grade)
+		if(this.grade == "") {
+			alert("Please enter a grade.");
 			return;
-		  }
-		  this.classId = result.data[0].class_id;
-		  this.courseName = result.data[0].class_name;
-		  //console.log(result);
 		}
 		
 		//now we can push to the api
@@ -120,6 +133,20 @@ export default {
 			class_id: this.classId
 		});
 		window.location.reload(false); //reload
+	},
+	async dropClass(myClass) {
+	  if(confirm("Are you sure you want to drop " + myClass.class.class_name + "?")) {
+	    await axios.delete('/api/grades/'+this.$route.params.id+'/'+myClass.class.class_id);
+		window.location.reload(false); //reload
+	  }
+	},
+	async removeStudent() {
+	  if(confirm("Are you sure you want to remove " +
+			this.currentStud.first_name +" "+ this.currentStud.last_name + "?")) {
+	    await axios.delete('/api/students/'+this.$route.params.id);
+		await axios.delete('/api/grades/'+this.$route.params.id);
+	    this.$router.push({name: 'StudentList'});
+	  }
 	}
   }
 }
