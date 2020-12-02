@@ -66,7 +66,6 @@ const StudentItem = mongoose.model('student', studentsSchema);
 
 app.get('/api/students', async (req, res) => {
   try {
-    console.log("GET students!");
     let student = await StudentItem.find();
     res.send(student);
   } catch (error) {
@@ -113,10 +112,9 @@ app.get('/api/classes/find/:name', async (req, res) => {
 
 app.delete('/api/students/:id', async (req, res) => {
   try {
-    let something = await StudentItem.deleteOne({
+    await StudentItem.deleteOne({
       id: Number(req.params.id)
     });
-	console.log(req.params.id, something);
     res.sendStatus(200);
   } catch (error) {
     console.log(error);
@@ -180,7 +178,6 @@ app.post('/api/students', async (req, res) => {
     gender: req.body.gender,
   });
   try {
-    console.log("POST students!");
     await student.save();
     res.send(student);
   } catch (error) {
