@@ -25,32 +25,32 @@ mongoose.connect('mongodb://localhost:27017/class-online', {
 
 // Create a scheme for items in the museum: a title and a path to an image.
 const gradeSchema = new mongoose.Schema({
-  id: String,
-  grade: String,
-  class_id: String,
+  id: Number,
+  grade: Number,
+  class_id: Number,
 });
 
 const classSchema = new mongoose.Schema({
-  class_id: String,
+  class_id: Number,
   class_name: String,
-  prof_id: String,
+  prof_id: Number,
   class_hour: String,
   class_day: String,
 });
 
 const professorsSchema = new mongoose.Schema({
-  id: String,
+  id: Number,
   first_name: String,
   last_name: String,
   email: String,
   gender: String,
-  years_teaching: String,
-  age: String,
+  years_teaching: Number,
+  age: Number,
   salary: String,
 });
 
 const studentsSchema = new mongoose.Schema({
-  id: String,
+  id: Number,
   user_name: String,
   password: String,
   first_name: String,
@@ -114,7 +114,7 @@ app.get('/api/classes/find/:name', async (req, res) => {
 app.delete('/api/students/:id', async (req, res) => {
   try {
     let something = await StudentItem.deleteOne({
-      id: req.params.id
+      id: Number(req.params.id)
     });
 	console.log(req.params.id, something);
     res.sendStatus(200);
@@ -126,7 +126,7 @@ app.delete('/api/students/:id', async (req, res) => {
 app.delete('/api/classes/:id', async (req, res) => {
   try {
     await ClassItem.deleteOne({
-      class_id: req.params.id
+      class_id: Number(req.params.id)
     });
     res.sendStatus(200);
   } catch (error) {
@@ -137,7 +137,7 @@ app.delete('/api/classes/:id', async (req, res) => {
 app.delete('/api/professors/:id', async (req, res) => {
   try {
     await ProfessorItem.deleteOne({
-      id: req.params.id
+      id: Number(req.params.id)
     });
     res.sendStatus(200);
   } catch (error) {
@@ -148,7 +148,7 @@ app.delete('/api/professors/:id', async (req, res) => {
 app.delete('/api/grades/:id', async (req, res) => {
   try {
     await GradeItem.deleteMany({
-      id: req.params.id
+      id: Number(req.params.id)
     });
     res.sendStatus(200);
   } catch (error) {
@@ -159,8 +159,8 @@ app.delete('/api/grades/:id', async (req, res) => {
 app.delete('/api/grades/:id/:class_id', async (req, res) => {
   try {
     await GradeItem.deleteOne({
-      id: req.params.id,
-	  class_id: req.params.class_id
+      id: Number(req.params.id),
+	  class_id: Number(req.params.class_id)
     });
     res.sendStatus(200);
   } catch (error) {
@@ -171,7 +171,7 @@ app.delete('/api/grades/:id/:class_id', async (req, res) => {
 
 app.post('/api/students', async (req, res) => {
   const student = new StudentItem({
-    id: req.body.id,
+    id: Number(req.body.id),
     user_name: req.body.user_name,
     password: req.body.password,
     first_name: req.body.first_name,
@@ -190,9 +190,9 @@ app.post('/api/students', async (req, res) => {
 });
 app.post('/api/classes', async (req, res) => {
   const classe = new ClassItem({
-    class_id: req.body.id,
+    class_id: Number(req.body.id),
     class_name: req.body.class_name,
-    prof_id: req.body.prof_id,
+    prof_id: Number(req.body.prof_id),
     class_hour: req.body.class_hour,
     class_day: req.body.class_day,
   });
@@ -206,13 +206,13 @@ app.post('/api/classes', async (req, res) => {
 });
 app.post('/api/professors', async (req, res) => {
   const professor = new ProfessorItem({
-    id: req.body.id,
+    id: Number(req.body.id),
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
     gender: req.body.gender,
-    years_teaching: req.body.years_teaching,
-    age: req.body.age,
+    years_teaching: Number(req.body.years_teaching),
+    age: Number(req.body.age),
     salary: req.body.salary,
   });
   try {
@@ -225,9 +225,9 @@ app.post('/api/professors', async (req, res) => {
 });
 app.post('/api/grades', async (req, res) => {
   const grade = new GradeItem({
-    id: req.body.id,
-    grade: req.body.grade,
-    class_id: req.body.class_id,
+    id: Number(req.body.id),
+    grade: Number(req.body.grade),
+    class_id: Number(req.body.class_id),
   });
   try {
     await grade.save();

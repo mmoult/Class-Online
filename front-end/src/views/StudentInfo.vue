@@ -42,6 +42,10 @@ Number(this.$route.params.id))<template>
 	</div>
 	
 	<h3 style="text-decoration:underline; padding-top:2%">Add a Class</h3>
+	<p>
+		Enter the class and grade to register the student for.<br/> A class can be found by the class ID. If you do not know the class
+		ID,<br/> you may enter the course name and the system will try to find the correct course.
+	</p>
 	<form>
 		<label for="classId">Class ID: </label>
 		<input type="text" id="classId" name="classId" placeholder="Class ID" v-model="classId"/>
