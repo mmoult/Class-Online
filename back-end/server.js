@@ -132,6 +132,17 @@ app.delete('/api/classes/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
+app.delete('/api/classes/id/:prof_id', async (req, res) => {
+  try {
+    await ClassItem.deleteOne({
+      prof_id: Number(req.params.prof_id)
+    });
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 app.delete('/api/professors/:id', async (req, res) => {
   try {
     await ProfessorItem.deleteOne({
