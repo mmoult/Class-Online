@@ -120,13 +120,12 @@ export default {
 		async removeTeacher() {
 			if(confirm("Are you sure you want to remove " +
 				this.currentTeacher.first_name +" "+ this.currentTeacher.last_name + "?")) {
-				await axios.delete('/api/professors/'+this.$route.params.id);
-			await axios.delete('/api/professors/'+this.$route.params.id);
-				await axios.delete('/api/classes/'+this.$route.params.id);
-			    this.$router.push({name: 'StudentList'});
-			  }
+			  await axios.delete('/api/professors/'+this.$route.params.id);
+			  await axios.delete('/api/classes/id/'+this.$route.params.id);
+			  this.$router.push({name: 'TeacherList'});
 			}
 		}
+	}
   }
 
 </script>
